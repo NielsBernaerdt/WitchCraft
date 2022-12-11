@@ -36,6 +36,12 @@ public class Idle : BaseState
 	}
 	private BaseState NPCIdle()
 	{
+		if(_accTime >= _idleDuration)
+		{
+			_accTime = 0f;
+			return new Wander(_pawn);
+		}
+		_accTime += Time.deltaTime;
 		return null;
 	}
 }
