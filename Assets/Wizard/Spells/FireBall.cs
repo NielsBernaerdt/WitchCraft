@@ -6,12 +6,15 @@ public class FireBall : BaseSpell
 {
 	private Vector2 _velocity;
 	private float _movSpeed = 10f;
-	private void Awake()
-	{
-		_castDuration = 0.5f;
-	}
+
+	private float _accTime = 0f;
+	private float _lifeTime = 2f;
 	private void FixedUpdate()
 	{
+		_accTime += Time.deltaTime;
+		if(_accTime >= _lifeTime)
+			Destroy(gameObject);
+
 		Vector2 currentPosition = transform.position;
 		Vector2 movement = currentPosition + (_velocity * Time.deltaTime * _movSpeed);
 		transform.SetPositionAndRotation(movement, Quaternion.identity);

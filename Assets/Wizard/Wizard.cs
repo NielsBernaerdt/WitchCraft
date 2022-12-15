@@ -5,12 +5,17 @@ using UnityEngine;
 
 public class Wizard : MonoBehaviour
 {
+	[SerializeField] private CombinedSpell _combinedSpellPrefab;
+	[SerializeField] private List<BaseSpell> Spells = new List<BaseSpell>();
+
 	public bool IsCasting = false;
-	public List<BaseSpell> Spells = new List<BaseSpell>();
+
 	private float _accTime = 0f;
+	private float _castDuration = 0.5f;
 	private Vector2 _targetSpellPosition;
-	private BaseSpell _castedSpell;
+	private CombinedSpell _combinedSpell;
 	private BasePawn _pawn;
+
 	private void Awake()
 	{
 		_pawn = GetComponent<BasePawn>();
@@ -18,10 +23,10 @@ public class Wizard : MonoBehaviour
 	private void Update()
 	{
 		if (IsCasting == true
-			&& _accTime >= _castedSpell.CastDuration)
+			&& _accTime >= _castDuration)
 		{
 			IsCasting = false;
-			ExecuteSpell(Spells.Random());
+			_combinedSpell.ExecuteSpell(_targetSpellPosition);
 		}
 
 		_accTime += Time.deltaTime;
@@ -32,20 +37,16 @@ public class Wizard : MonoBehaviour
 		_targetSpellPosition = targetPosition;
 		_accTime = 0f;
 	}
-	private void ExecuteSpell(BaseSpell spell)
-	{
-		if (spell != null)
-		{
-			BaseSpell executedSpell = Instantiate(_castedSpell, transform.position, Quaternion.identity);
-			executedSpell.Execute(_targetSpellPosition);
-		}
-	}
 	public bool ReceivedCastInput()
 	{
 		return _pawn.HasReceivedActionInput();
 	}
 	public void SetSpell(int index)
 	{
-		_castedSpell = Spells[index];
+		if (IsCasting == false)
+		{
+			_combinedSpell = Instantiate(_combinedSpellPrefab, transform.position, Quaternion.identity);
+		}
+		_combinedSpell.ConstructSpell(Spells[index]);
 	}
 }
