@@ -17,14 +17,6 @@ public class CastSpell : BaseState
 
 		return null;
 	}
-	public override void OnEnter()
-	{
-		_wizardComponent = _pawn.GetComponent<Wizard>();
-		if (_wizardComponent)
-		{
-			Vector2 mousePosWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-			_wizardComponent.StartCasting(mousePosWorld);
-		}
-	}
+	public override void OnEnter() { }
 	public override void OnExit() { }
 }

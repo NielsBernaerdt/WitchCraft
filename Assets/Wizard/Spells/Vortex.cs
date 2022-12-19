@@ -17,4 +17,15 @@ public class Vortex : BaseSpell
 	{
 		transform.SetPositionAndRotation(targetPosition, Quaternion.identity);
 	}
+	public override List<SpawnInfo> GetSpawnOriginAndDirection()
+	{
+		List<SpawnInfo> list = new List<SpawnInfo>
+		{
+			new SpawnInfo(transform.position, new Vector2( 1,  0)),
+			new SpawnInfo(transform.position, new Vector2(-1,  0)),
+			new SpawnInfo(transform.position, new Vector2( 0,  1)),
+			new SpawnInfo(transform.position, new Vector2( 0, -1))
+		};
+		return list;
+	}
 }
