@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Idle : BaseState
 {
-	private float _accTime;
+	private float _accTime = 0f;
 	private float _idleDuration = 2f;
 	public Idle(BasePawn pawn) { _pawn = pawn; }
 	public override BaseState Update()

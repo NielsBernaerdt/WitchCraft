@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,12 +13,6 @@ public class Wizard : MonoBehaviour
 	private float _castDuration = 0.5f;
 	private Vector2 _targetSpellPosition;
 	private CombinedSpell _combinedSpell;
-	private BasePawn _pawn;
-
-	private void Awake()
-	{
-		_pawn = GetComponent<BasePawn>();
-	}
 	private void Update()
 	{
 		if (IsCasting == true
@@ -39,10 +31,6 @@ public class Wizard : MonoBehaviour
 		IsCasting = true;
 		_targetSpellPosition = targetPosition;
 		_accTime = 0f;
-	}
-	public bool ReceivedCastInput()
-	{
-		return _pawn.HasReceivedActionInput();
 	}
 	public void SetSpell(int index)
 		// Gets called via input

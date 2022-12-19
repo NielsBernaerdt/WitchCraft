@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Wander : BaseState
 {
 	private float _wanderRadius = 5f;
 	private Vector2 _target;
-	float _movSpeed = 10f;
+	private float _movSpeed = 10f;
 	public Wander(BasePawn pawn) { _pawn = pawn; }
 	public override BaseState Update()
 	{

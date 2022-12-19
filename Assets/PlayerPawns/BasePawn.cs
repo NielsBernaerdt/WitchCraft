@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class BasePawn : MonoBehaviour
+public abstract class BasePawn : MonoBehaviour
 {
 	private BaseState _state;
 	[SerializeField] private string _stateName;
@@ -23,19 +20,7 @@ public class BasePawn : MonoBehaviour
 			_state.OnEnter();
 		}
 	}
-	public virtual bool HasReceivedActionInput()
-	{
-		Debug.LogError("BasePawn - HasReceivedActionInput not using override");
-		return false; 
-	}
-	public virtual bool HasReceivedMovementInput()
-	{
-		Debug.LogError("BasePawn - HasReceivedMovementInput not using override");
-		return false;
-	}
-	public virtual Vector2 GetMovementInput()
-	{
-		Debug.LogError("BasePawn - GetMovementInput not using override");
-		return new Vector2();
-	}
+	public abstract bool HasReceivedActionInput();
+	public abstract bool HasReceivedMovementInput();
+	public abstract Vector2 GetMovementInput();
 }

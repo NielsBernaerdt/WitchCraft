@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using static BaseSpell;
 
@@ -38,7 +35,7 @@ public class CombinedSpell : MonoBehaviour
 		{
 			foreach (var spawnInfo in _spawnInfoList)
 			{
-				var Queue = new Queue<BaseSpell>(_spellQueue);
+				var Queue = new Queue<BaseSpell>(_spellQueue); //Otherwise, the next iteration will have an empty queue
 				var newCombinedSpell = Instantiate<CombinedSpell>(this, spawnInfo.SpawnLocation, Quaternion.identity);
 				newCombinedSpell.SetSpells(Queue);
 				newCombinedSpell.ExecuteSpell((Vector2)transform.position + spawnInfo.SpawnDirection);
