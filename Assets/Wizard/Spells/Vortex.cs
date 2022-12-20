@@ -5,6 +5,7 @@ public class Vortex : BaseSpell
 {
 	private float _scaleSpeed = 0.3f;
 	private float _maxScale = 4f;
+
 	private void FixedUpdate()
 	{
 		if (transform.localScale.x >= _maxScale)

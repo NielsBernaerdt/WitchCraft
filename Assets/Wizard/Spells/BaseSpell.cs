@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BaseSpell : MonoBehaviour
 {
+	[SerializeField] protected float _spellCost = 0f;
+	public float SpellCost { get => _spellCost; }
 	public struct SpawnInfo
 	{
 		public Vector2 SpawnLocation;

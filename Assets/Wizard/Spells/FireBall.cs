@@ -8,6 +8,7 @@ public class FireBall : BaseSpell
 
 	private float _accTime = 0f;
 	private float _lifeTime = 2f;
+
 	private void FixedUpdate()
 	{
 		_accTime += Time.deltaTime;

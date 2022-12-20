@@ -6,6 +6,7 @@ public class Wizard : MonoBehaviour
 {
 	[SerializeField] private CombinedSpell _combinedSpellPrefab;
 	[SerializeField] private List<BaseSpell> Spells = new List<BaseSpell>();
+	[SerializeField] private ResourceManager _resourceManager = new ResourceManager();
 
 	public bool IsCasting = false;
 
@@ -24,6 +25,7 @@ public class Wizard : MonoBehaviour
 		}
 
 		_accTime += Time.deltaTime;
+		_resourceManager.RechargeElixir();
 	}
 	public void StartCasting(Vector2 targetPosition)
 		// Gets called when the spell gets constructed
@@ -45,6 +47,11 @@ public class Wizard : MonoBehaviour
 			Vector2 mousePosWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 			StartCasting(mousePosWorld);
 		}
-		_combinedSpell.ConstructSpell(Spells[index]);
+
+		BaseSpell chosenSpell = Spells[index];
+		if(_resourceManager.CastSpell(chosenSpell.SpellCost))
+		{
+			_combinedSpell.ConstructSpell(chosenSpell);
+		}
 	}
 }
