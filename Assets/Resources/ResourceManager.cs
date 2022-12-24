@@ -13,20 +13,22 @@ public class ResourceManager
 
 	public void RechargeElixir()
 	{
-		Debug.Log("Current elixir value: " + _currentElixir);
 		if(_currentElixir < _maxElixir)
 		{
 			_currentElixir += _elixirGrowth * Time.deltaTime;
 			GlobalEventHandler.Instance?.InvokeOnElixirGenerated(this, (int)_currentElixir);
 		}
 	}
-	public bool CastSpell(float cost)
+	public bool CanPaySpell(float cost)
 	{
 		if(cost <= _currentElixir)
 		{
-			_currentElixir -= cost;
 			return true;
 		}
 		return false;
+	}
+	public void PaySpell(float cost)
+	{
+		_currentElixir -= cost;
 	}
 }
