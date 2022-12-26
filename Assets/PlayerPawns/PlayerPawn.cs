@@ -1,7 +1,9 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Wizard), typeof(CharacterController))]
+[RequireComponent(typeof(PlayerNetwork), typeof(NetworkObject))]
 public class PlayerPawn : BasePawn
 {
 	private CharacterController _controller;
@@ -18,10 +20,18 @@ public class PlayerPawn : BasePawn
 		_controller = GetComponent<CharacterController>();
 		Wizard = GetComponent<Wizard>();
 
-		SetupInputActions();
+		//SetupInputActions();
+	}
+
+	public override void OnNetworkSpawn()
+	{
+		base.OnNetworkSpawn();
+
+		if(IsOwner) SetupInputActions();
 	}
 	private void SetupInputActions()
 	{
+		//TODO: playerpawncontroller?
 		_playerInput = GetComponent<PlayerInput>();
 		_playerInput.actions.FindAction("Move").performed += context => _isMoving = true;
 		_playerInput.actions.FindAction("Move").canceled += context => _isMoving = false;

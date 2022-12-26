@@ -94,7 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 294491665977465278}
   - component: {fileID: -2854493773760896931}
+  - component: {fileID: 1829655017}
+  - component: {fileID: 6010927140002875065}
   - component: {fileID: 173862930}
+  - component: {fileID: 6971710152786281618}
   - component: {fileID: 3426953692872224083}
   - component: {fileID: -7662804844186908252}
   m_Layer: 0
@@ -134,6 +137,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stateName: 
   Wizard: {fileID: 173862930}
+--- !u!114 &1829655017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339597258231384428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &6010927140002875065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339597258231384428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68736fce283f4b744a19f05354646a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &173862930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +182,18 @@ MonoBehaviour:
   - {fileID: 9126284428499702896, guid: 79d44ca5f60598347bf419f74142e14a, type: 3}
   - {fileID: -3122848650025873239, guid: 16ec9832701acfb48aefb95db4aa21fe, type: 3}
   IsCasting: 0
+--- !u!114 &6971710152786281618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339597258231384428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0f24b8907553441af3196054159fbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &3426953692872224083
 CharacterController:
   m_ObjectHideFlags: 0

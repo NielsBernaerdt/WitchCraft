@@ -7,6 +7,7 @@ public class CombinedSpell : MonoBehaviour
 	private Queue<BaseSpell> _spellQueue = new Queue<BaseSpell>();
 	private BaseSpell _currentSpell;
 	private List<SpawnInfo> _spawnInfoList = new List<SpawnInfo>();
+	private bool _isExecuted = false;
 	public void ConstructSpell(BaseSpell spell)
 	{
 		_spellQueue.Enqueue(spell);
@@ -19,9 +20,13 @@ public class CombinedSpell : MonoBehaviour
 	{
 		_currentSpell = Instantiate(_spellQueue.Dequeue(), transform.position, Quaternion.identity);
 		_currentSpell.Execute(targetSpellLocation);
+		_isExecuted = true;
 	}
 	private void FixedUpdate()
 	{
+		if (_isExecuted == false)
+			return;
+
 		if (_currentSpell != null)
 		{
 			transform.position = _currentSpell.transform.position;

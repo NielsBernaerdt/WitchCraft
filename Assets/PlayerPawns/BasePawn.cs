@@ -1,6 +1,7 @@
 using UnityEngine;
+using Unity.Netcode;
 
-public abstract class BasePawn : MonoBehaviour
+public abstract class BasePawn : NetworkBehaviour
 {
 	private BaseState _state;
 	[SerializeField] private string _stateName;
