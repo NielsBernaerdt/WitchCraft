@@ -12,6 +12,9 @@ public class CastSpell : BaseState
 
 		return null;
 	}
-	public override void OnEnter() { }
+	public override void OnEnter() 
+	{ 
+		_wizardComponent = _pawn.GetComponent<Wizard>();
+	}
 	public override void OnExit() { }
 }
