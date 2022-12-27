@@ -4,20 +4,20 @@ using UnityEngine;
 public class WizardNetwork : NetworkBehaviour
 {
 	[ServerRpc]
-	public void RequestCastServerRpc(SpellNetworkData test)
+	public void RequestSpellCastServerRpc(SpellNetworkData test)
 	{
-		CastClientRpc(test);
+		SpellCastClientRpc(test);
 	}
 
 	[ClientRpc]
-	private void CastClientRpc(SpellNetworkData test)
+	private void SpellCastClientRpc(SpellNetworkData test)
 	{
-		ExecuteCast(test);
+		ExecuteSpellCast(test);
 	}
 
-	private void ExecuteCast(SpellNetworkData test)
+	private void ExecuteSpellCast(SpellNetworkData test)
 	{
-		if(!IsOwner) GetComponent<Wizard>().SpawnSpell(test);
+		if(!IsOwner) GetComponent<Wizard>().SpawnSpellClients(test);
 	}
 
 	public struct SpellNetworkData : INetworkSerializable

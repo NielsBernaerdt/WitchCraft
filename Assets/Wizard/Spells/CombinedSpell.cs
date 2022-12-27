@@ -4,11 +4,11 @@ using static BaseSpell;
 
 public class CombinedSpell : MonoBehaviour
 {
-	private Queue<BaseSpell> _spellQueue = new Queue<BaseSpell>();
+	private Queue<BaseSpell> _spellQueue = new ();
 	private BaseSpell _currentSpell;
-	private List<SpawnInfo> _spawnInfoList = new List<SpawnInfo>();
+	private List<SpawnInfo> _spawnInfoList = new ();
 	private bool _isExecuted = false;
-	public void ConstructSpell(BaseSpell spell)
+	public void AddSpell(BaseSpell spell)
 	{
 		_spellQueue.Enqueue(spell);
 	}
@@ -30,7 +30,7 @@ public class CombinedSpell : MonoBehaviour
 		if (_currentSpell != null)
 		{
 			transform.position = _currentSpell.transform.position;
-			_spawnInfoList = _currentSpell.GetSpawnOriginAndDirection();
+			_spawnInfoList = _currentSpell.GetSpawnInfoNextSpell();
 			return;
 		}
 
@@ -38,18 +38,24 @@ public class CombinedSpell : MonoBehaviour
 		&& _spellQueue != null
 		&& _spellQueue.Count > 0)
 		{
-			foreach (var spawnInfo in _spawnInfoList)
-			{
-				var Queue = new Queue<BaseSpell>(_spellQueue); //Otherwise, the next iteration will have an empty queue
-				var newCombinedSpell = Instantiate<CombinedSpell>(this, spawnInfo.SpawnLocation, Quaternion.identity);
-				newCombinedSpell.SetSpells(Queue);
-				newCombinedSpell.ExecuteSpell((Vector2)transform.position + spawnInfo.SpawnDirection);
-			}
+			SpawnNextSpell();
 			Destroy(gameObject);
 		}
 		else
 		{
 			Destroy(gameObject);
+		}
+	}
+	private void SpawnNextSpell()
+	// Spawn the next spell in the queue
+	// nr of spells & positions depend on the _spawnInfoList
+	{
+		foreach (var spawnInfo in _spawnInfoList)
+		{
+			var Queue = new Queue<BaseSpell>(_spellQueue); //Otherwise, the next iteration will have an empty queue
+			var newCombinedSpell = Instantiate<CombinedSpell>(this, spawnInfo.SpawnLocation, Quaternion.identity);
+			newCombinedSpell.SetSpells(Queue);
+			newCombinedSpell.ExecuteSpell((Vector2)transform.position + spawnInfo.SpawnDirection);
 		}
 	}
 }

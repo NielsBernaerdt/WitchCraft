@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerNetwork : NetworkBehaviour
 {
-	private readonly NetworkVariable<PlayerNetworkData> _networkData = new NetworkVariable<PlayerNetworkData>(writePerm: NetworkVariableWritePermission.Owner);
+	private readonly NetworkVariable<PlayerNetworkData> _networkData = new (writePerm: NetworkVariableWritePermission.Owner);
 
 	private void Update()
 	{

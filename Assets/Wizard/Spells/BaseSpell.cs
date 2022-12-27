@@ -16,7 +16,7 @@ public class BaseSpell : MonoBehaviour
 		}
 	}
 	public virtual void Execute(Vector2 targetPosition) { }
-	public virtual List<SpawnInfo> GetSpawnOriginAndDirection() { return null; }
+	public virtual List<SpawnInfo> GetSpawnInfoNextSpell() { return null; }
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{

@@ -25,7 +25,7 @@ public class FireBall : BaseSpell
 		_velocity = targetPosition - currentPosition;
 		_velocity.Normalize();
 	}
-	public override List<SpawnInfo> GetSpawnOriginAndDirection()
+	public override List<SpawnInfo> GetSpawnInfoNextSpell()
 	{
 		List<SpawnInfo> list = new List<SpawnInfo>
 		{

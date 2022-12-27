@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,8 +7,8 @@ using static WizardNetwork;
 public class Wizard : MonoBehaviour
 {
 	[SerializeField] private CombinedSpell _combinedSpellPrefab;
-	[SerializeField] private List<BaseSpell> Spells = new List<BaseSpell>();
-	[SerializeField] private ResourceManager _resourceManager = new ResourceManager();
+	[SerializeField] private List<BaseSpell> Spells = new ();
+	[SerializeField] private ResourceManager _resourceManager = new ();
 
 	public bool IsCasting = false;
 
@@ -17,7 +16,7 @@ public class Wizard : MonoBehaviour
 	private float _castDuration = 0.5f;
 	private Vector2 _targetSpellPosition;
 	private CombinedSpell _combinedSpell;
-	private int[] _testIndices = new int[0];
+	private List<int> _spellIndices = new ();
 
 	private WizardNetwork _wizardNetwork;
 
@@ -31,16 +30,9 @@ public class Wizard : MonoBehaviour
 			&& _accTime >= _castDuration)
 		{
 			IsCasting = false;
-			_combinedSpell.ExecuteSpell(_targetSpellPosition);
-
-
-			SpellNetworkData test = new()
-			{
-				_spellIdArray = _testIndices,
-				Position = _combinedSpell.transform.position,
-				TargetPosition = _targetSpellPosition
-			};
-			_wizardNetwork.RequestCastServerRpc(test);
+			ExecuteSpellLocal();
+			ExecuteSpellClients();
+			_spellIndices.Clear();
 		}
 
 		_accTime += Time.deltaTime;
@@ -53,7 +45,7 @@ public class Wizard : MonoBehaviour
 		_targetSpellPosition = targetPosition;
 		_accTime = 0f;
 	}
-	public void SetSpell(int index)
+	public void CastSpellByIndex(int index)
 		// Gets called via input
 		// Creates a CombinedSpell object
 		// & fills its spellqueue
@@ -67,29 +59,44 @@ public class Wizard : MonoBehaviour
 		}
 
 		BaseSpell chosenSpell = Spells[index];
-		if(_resourceManager.CanPaySpell(chosenSpell.SpellCost))
+		if(_resourceManager.CanCastSpell(chosenSpell.SpellCost))
 		{
 			_resourceManager.PaySpell(chosenSpell.SpellCost);
-			_combinedSpell.ConstructSpell(chosenSpell);
-
-			int[] tempArray = new int[_testIndices.Length+1];
-			Array.Copy(_testIndices, tempArray, _testIndices.Length);
-			tempArray[tempArray.Length - 1] = index;
-			_testIndices = tempArray;
+			_spellIndices.Add(index);
 		}
 	}
-
-	//////////////////
-	///
-	public void SpawnSpell(SpellNetworkData test)
+	private Queue<BaseSpell> ConstructSpellQueue()
+	{
+		Queue<BaseSpell> spellQueue = new();
+		foreach(int index in _spellIndices)
+		{
+			spellQueue.Enqueue(Spells[index]);
+		}
+		return spellQueue;
+	}
+	private void ExecuteSpellLocal()
+	{
+		_combinedSpell.SetSpells(ConstructSpellQueue());
+		_combinedSpell.ExecuteSpell(_targetSpellPosition);
+	}
+	private void ExecuteSpellClients()
+	{
+		SpellNetworkData test = new()
+		{
+			_spellIdArray = _spellIndices.ToArray(),
+			Position = _combinedSpell.transform.position,
+			TargetPosition = _targetSpellPosition
+		};
+		_wizardNetwork.RequestSpellCastServerRpc(test);
+	}
+	public void SpawnSpellClients(SpellNetworkData test)
 	{
 		_combinedSpell = Instantiate(_combinedSpellPrefab, test.Position, Quaternion.identity);
-
+		_combinedSpell.SetSpells(ConstructSpellQueue());
 		for (int i = 0; i < test._spellIdArray.Length; ++i)
 		{
-			_combinedSpell.ConstructSpell(Spells[test._spellIdArray[i]]);
+			_combinedSpell.AddSpell(Spells[test._spellIdArray[i]]);
 		}
-
 		_combinedSpell.ExecuteSpell(test.TargetPosition);
 	}
 }

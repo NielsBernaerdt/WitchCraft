@@ -6,41 +6,39 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerNetwork), typeof(NetworkObject))]
 public class PlayerPawn : BasePawn
 {
-	private CharacterController _controller;
-	public CharacterController Controller { get { return _controller; } }
+	private Wizard Wizard = null;
 
-	public Wizard Wizard;
-
-	private PlayerInput _playerInput;
+	private PlayerInput _playerInput = null;
 	private bool _isMoving = false;
 	private bool _isCasting = false;
-
-	private void Start()
-	{
-		_controller = GetComponent<CharacterController>();
-		Wizard = GetComponent<Wizard>();
-
-		//SetupInputActions();
-	}
 
 	public override void OnNetworkSpawn()
 	{
 		base.OnNetworkSpawn();
 
-		if(IsOwner) SetupInputActions();
+		if (IsOwner)
+		{
+			Wizard = GetComponent<Wizard>();
+			_playerInput = GetComponent<PlayerInput>();
+			if (_playerInput)
+				SetupInputActions();
+			else
+				Debug.LogError("PLAYERPAWN - ONNETWORKSPAWN PLAYERINPUT COMPONENT MISSING");
+		}
 	}
 	private void SetupInputActions()
 	{
-		//TODO: playerpawncontroller?
-		_playerInput = GetComponent<PlayerInput>();
 		_playerInput.actions.FindAction("Move").performed += context => _isMoving = true;
 		_playerInput.actions.FindAction("Move").canceled += context => _isMoving = false;
-		_playerInput.actions.FindAction("PrimaryCast").performed += context => _isCasting = true;
-		_playerInput.actions.FindAction("PrimaryCast").performed += context => Wizard.SetSpell(0);
-		_playerInput.actions.FindAction("PrimaryCast").canceled += context => _isCasting = false;
-		_playerInput.actions.FindAction("SecondaryCast").performed += context => _isCasting = true;
-		_playerInput.actions.FindAction("SecondaryCast").performed += context => Wizard.SetSpell(1);
-		_playerInput.actions.FindAction("SecondaryCast").canceled += context => _isCasting = false;
+		if (Wizard)
+		{
+			_playerInput.actions.FindAction("PrimaryCast").performed += context => _isCasting = true;
+			_playerInput.actions.FindAction("PrimaryCast").performed += context => Wizard.CastSpellByIndex(0);
+			_playerInput.actions.FindAction("PrimaryCast").canceled += context => _isCasting = false;
+			_playerInput.actions.FindAction("SecondaryCast").performed += context => _isCasting = true;
+			_playerInput.actions.FindAction("SecondaryCast").performed += context => Wizard.CastSpellByIndex(1);
+			_playerInput.actions.FindAction("SecondaryCast").canceled += context => _isCasting = false;
+		}
 	}
 	public override bool HasReceivedActionInput()
 	{

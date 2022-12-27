@@ -19,7 +19,7 @@ public class ResourceManager
 			GlobalEventHandler.Instance?.InvokeOnElixirGenerated(this, (int)_currentElixir);
 		}
 	}
-	public bool CanPaySpell(float cost)
+	public bool CanCastSpell(float cost)
 	{
 		if(cost <= _currentElixir)
 		{
