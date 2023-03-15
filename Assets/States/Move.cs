@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Move : BaseState
 {
-	CharacterController _controller;
+	Rigidbody2D _rigidBody;
 	float _movSpeed = 10f;
 	public Move(BasePawn pawn) { _pawn = pawn; }
 	public override BaseState Update()
@@ -13,12 +13,12 @@ public class Move : BaseState
 		Vector2 movementInput = _pawn.GetMovementInput();
 		if (movementInput.magnitude < float.Epsilon)
 			return new Idle(_pawn);
-		_controller.Move(movementInput * Time.deltaTime * _movSpeed);
+		_rigidBody.MovePosition(_rigidBody.position + movementInput * Time.deltaTime * _movSpeed);
 		return null;
 	}
 	public override void OnEnter()
 	{
-		_controller = _pawn.GetComponent<CharacterController>();
+		_rigidBody = _pawn.GetComponent<Rigidbody2D>();
 	}
 	public override void OnExit() { }
 }

@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Wizard), typeof(CharacterController))]
+[RequireComponent(typeof(Wizard))]
 [RequireComponent(typeof(PlayerNetwork), typeof(NetworkObject))]
 public class PlayerPawn : BasePawn
 {

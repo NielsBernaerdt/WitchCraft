@@ -98,8 +98,9 @@ GameObject:
   - component: {fileID: 6010927140002875065}
   - component: {fileID: 173862930}
   - component: {fileID: 6971710152786281618}
-  - component: {fileID: 3426953692872224083}
   - component: {fileID: -7662804844186908252}
+  - component: {fileID: -2457396504518402294}
+  - component: {fileID: 360827345646121855}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -136,7 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stateName: 
-  Wizard: {fileID: 173862930}
 --- !u!114 &1829655017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,24 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec0f24b8907553441af3196054159fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!143 &3426953692872224083
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6339597258231384428}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-7662804844186908252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +236,43 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!70 &-2457396504518402294
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339597258231384428}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
+--- !u!50 &360827345646121855
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339597258231384428}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6749216793362745593
 GameObject:
   m_ObjectHideFlags: 0
