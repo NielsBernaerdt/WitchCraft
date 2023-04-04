@@ -42,4 +42,9 @@ public class Idle : BaseState
 		_accTime += Time.deltaTime;
 		return null;
 	}
+
+	public override int GetAnimation()
+	{
+		return Animator.StringToHash("idle");
+    }
 }

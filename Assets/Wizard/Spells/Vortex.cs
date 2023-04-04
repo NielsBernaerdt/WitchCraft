@@ -5,6 +5,7 @@ public class Vortex : BaseSpell
 {
 	private float _scaleSpeed = 3f;
 	private float _maxScale = 4f;
+	private float _rotationSpeed = -120f;
 
 	private void FixedUpdate()
 	{
@@ -12,6 +13,7 @@ public class Vortex : BaseSpell
 			Destroy(gameObject);
 		float currentScaling = _scaleSpeed * Time.deltaTime;
 		transform.localScale += new Vector3(currentScaling, currentScaling, 0);
+		transform.Rotate(new Vector3(0, 0, 1), transform.rotation.z + _rotationSpeed * Time.deltaTime);
 	}
 	public override void Execute(Vector2 targetPosition)
 	{

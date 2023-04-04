@@ -4,4 +4,6 @@ public abstract class BaseState
 	public abstract BaseState Update();
 	public abstract void OnEnter();
 	public abstract void OnExit();
+
+	public abstract int GetAnimation();
 }

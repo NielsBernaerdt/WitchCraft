@@ -3,7 +3,7 @@ using UnityEngine;
 public class Move : BaseState
 {
 	Rigidbody2D _rigidBody;
-	float _movSpeed = 10f;
+	float _movSpeed = 15f;
 	public Move(BasePawn pawn) { _pawn = pawn; }
 	public override BaseState Update()
 	{
@@ -21,4 +21,9 @@ public class Move : BaseState
 		_rigidBody = _pawn.GetComponent<Rigidbody2D>();
 	}
 	public override void OnExit() { }
+
+	public override int GetAnimation()
+	{
+		return Animator.StringToHash("walk");
+    }
 }

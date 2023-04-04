@@ -18,9 +18,10 @@ public class BaseSpell : MonoBehaviour
 	public virtual void Execute(Vector2 targetPosition) { }
 	public virtual List<SpawnInfo> GetSpawnInfoNextSpell() { return null; }
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	public virtual void OnTriggerEnter2D(Collider2D collision)
 	{
 		Destroy(collision.gameObject);
 		Destroy(gameObject);
+		Debug.Log("this should NOT run");
 	}
 }

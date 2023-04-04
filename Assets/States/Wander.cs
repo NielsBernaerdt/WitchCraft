@@ -21,4 +21,9 @@ public class Wander : BaseState
 		_target.y = _pawn.transform.position.y + Random.Range(0, _wanderRadius) * Mathf.Sin(theta);
 	}
 	public override void OnExit() { }
+
+	public override int GetAnimation()
+	{
+		return Animator.StringToHash("walk");
+    }
 }

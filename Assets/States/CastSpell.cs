@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class CastSpell : BaseState
 {
 	private Wizard _wizardComponent = null;
@@ -17,4 +19,9 @@ public class CastSpell : BaseState
 		_wizardComponent = _pawn.GetComponent<Wizard>();
 	}
 	public override void OnExit() { }
+
+	public override int GetAnimation()
+	{
+		return Animator.StringToHash("casting");
+    }
 }

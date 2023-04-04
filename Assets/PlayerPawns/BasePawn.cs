@@ -24,4 +24,8 @@ public abstract class BasePawn : NetworkBehaviour
 	public abstract bool HasReceivedActionInput();
 	public abstract bool HasReceivedMovementInput();
 	public abstract Vector2 GetMovementInput();
+	public int GetCurrentAnimationState()
+	{
+		return _state.GetAnimation();
+	}
 }
